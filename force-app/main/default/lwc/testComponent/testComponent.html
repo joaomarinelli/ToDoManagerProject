@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Campo Lookup Customizado" icon-name="standard:display_text">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                
+                <c-custom-lookup-field 
+                    child-object-api-name='Contact'
+                    target-field-api-name='AccountId'
+                    onvalueselected={handleValueSelected}>
+                </c-custom-lookup-field>
+
+
+                ID do contato selecionado: {selectedRecordId}
+                
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+ 
+</template>

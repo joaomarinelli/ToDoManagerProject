@@ -1,0 +1,146 @@
+<template>
+    <lightning-card title="Campo Lookup Customizado" icon-name="standard:display_text">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                
+                <c-custom-lookup-field 
+                    child-object-api-name='Opportunity'
+                    target-field-api-name='AccountId'
+                    onvalueselected={handleValueSelected}
+                    value={selectedAccount}>
+                </c-custom-lookup-field>
+
+
+                ID do contato selecionado: {selectedAccount}
+                
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+    <lightning-card title="Opps Report">
+        <div class="slds-m-around_medium">
+            <lightning-input type="date" label="Close Date" onchange={handleCloseDateChange}></lightning-input>
+            <lightning-combobox label="Stage" placeholder="Select a stage" options={stageOptions} value={stage} onchange={handleStageChange}></lightning-combobox>
+            <lightning-button label="Generate Report" variant="brand" onclick={handleGenerateReport}></lightning-button>
+        </div>
+        <template if:true={opportunities}>
+            <div class="slds-m-around_medium">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="slds-text-align_left" scope="col">
+                                <div class="slds-truncate" title="Opp Name">Opp Name</div>
+                            </th>
+                            <th class="slds-text-align_left" scope="col">
+                                <div class="slds-truncate" title="Account Name">Account Name</div>
+                            </th>
+                            <th class="slds-text-align_left" scope="col">
+                                <div class="slds-truncate" title="Stage">Stage</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={opportunities} for:item="opportunity">
+                            <tr key={opportunity.Id}>
+                                <td data-label="Opportunity Name">
+                                    <div class="slds-truncate" title={opportunity.Name}>{opportunity.Name}</div>
+                                </td>
+                                <td data-label="Account Name">
+                                    <div class="slds-truncate" title={opportunity.Account.Name}>{opportunity.Account.Name}</div>
+                                </td>
+                                <td data-label="Stage">
+                                    <div class="slds-truncate" title={opportunity.StageName}>{opportunity.StageName}</div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+    </lightning-card>
+</template>
+
+<!-- <template>
+    <lightning-card title="Campo Lookup Customizado" icon-name="standard:display_text">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                
+                <c-custom-lookup-field 
+                    child-object-api-name='Contact'
+                    target-field-api-name='AccountId'
+                    onvalueselected={handleValueSelected}>
+                </c-custom-lookup-field>
+
+
+                ID do contato selecionado: {selectedAccount}
+                
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+    <lightning-card title="Opportunity Report">
+        <div class="slds-m-around_medium">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-input type="date"
+                                        label="Close Date"
+                                        value={selectedCloseDate}
+                                        onchange={handleCloseDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-combobox label="Stage"
+                                        value={selectedStage}
+                                        options={stageOptions}
+                                        onchange={handleStageChange}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-button label="Generate Report" onclick={handleGenerateReport}></lightning-button>
+                </div>
+            </div>
+            <div class="slds-m-top_medium">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Opportunity Name">Opportunity Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Close Date">Close Date</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Stage">Stage</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Account">Account</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Amount">Amount</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={opportunities} for:item="opp">
+                            <tr key={opp.Id}>
+                                <td>
+                                    <div class="slds-truncate" title={opp.Name}>{opp.Name}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={opp.CloseDate}>{opp.CloseDate}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={opp.StageName}>{opp.StageName}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={opp.Account.Name}>{opp.Account.Name}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={opp.Amount}>{opp.Amount}</div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </lightning-card>
+</template> -->
